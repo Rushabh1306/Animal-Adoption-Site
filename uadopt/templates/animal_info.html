@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<img src = '/../media/{{animalImage}}'><br>
+Name : {{animalName}}<br>
+Age : {{animalAge}}<br>
+Location : {{animalLocation}}<br>
+Type : {{animalType}}<br>
+Breed :{{animalBreed}}<br>
+Vaccination : {{animalVacc}}<br>
+Description : {{animalDesc}}<br>
+<!--<form method="post" action="">-->
+<!--    {% csrf_token %}-->
+<!--    <input type="submit" value={{animal_id}} name = 'AnimalId' placeholder="Adopt">-->
+<!--</form>-->
+<a href = '/adoption/evaluation/{{animalId}}'>Adopt</a>
+</body>
+</html>

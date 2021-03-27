@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for d in data %}
+    <div>
+        <p>
+            <img src = '/../media/{{d.animalpic}}'><br>
+
+            Name : {{d.animalName}}<br>
+            Requested by : <br>
+
+            {{d.userName}}
+            {{d.userEmail}}
+            <a href = "viewRequestInfo/{{d.reqid}}">View</a>
+
+    </div>
+    {% endfor %}
+</body>
+</html>

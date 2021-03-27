@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+User Details
+<p>
+    Username : {{userInfo.username}}<br>
+    Email : {{userInfo.email}}<br>
+    First Name : {{userInfo.firstname}}<br>
+    Last Name : {{userInfo.lastname}}<br>
+
+</p>
+Animal Details
+<p>
+    <img src = '/../media/{{animalInfo.p_animalpic}}'><br>
+    Name : {{animalInfo.p_name}}<br>
+    Age : {{animalInfo.p_age}}<br>
+    Gender : {{animalInfo.p_gender}}
+    Location : {{animalInfo.p_location}}<br>
+    Type : {{animalInfo.p_type}}<br>
+    Breed :{{animalInfo.p_breed}}<br>
+    Vaccination : {{animalInfo.p_vaccination}}<br>
+    Description : {{animalInfo.p_desc}}<br>
+</p>
+Evaluation Details
+
+<p>
+    Answer1 : {{evalInfo.evaluation_details}}
+</p>
+<a href = "{% url 'confirmRequest' reqid %}"> Grant </a>
+<a href = "{% url 'rejectedRequest' reqid %}">Reject</a>
+</body>
+</html>

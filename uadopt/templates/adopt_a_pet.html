@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--search-->
+<input type="text" placeholder="Search..">
+
+<!--filters-->
+<label for="animalType">Choose a car:</label>
+
+<select name="animalType" id="animalType">
+  <option value="cat">Cat</option>
+  <option value="dog">Dog</option>
+</select>
+
+
+
+{% for animal in all_animals %}
+    <div>
+        <p>
+            <img src = '/../media/{{animal.p_animalpic}}'>
+<!--            <img src = '{{media}}/{{animal.animalpic}}-->
+            {{animal.p_name}}
+            {{animal.p_location}}
+            {{animal.p_age}}
+
+            <a href="animalInfo/{{animal.id}}">View</a>
+
+
+        </p>
+    </div>
+    {% endfor %}
+</body>
+</html>

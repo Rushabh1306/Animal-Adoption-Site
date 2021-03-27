@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form method="post" action="">
+        {{form.username.label}}
+        {{form.username}}<br>
+        {{form.email.label}}
+        {{form.email}}<br>
+        {{form.password1.label}}
+        {{form.password1}}<br>
+        {{form.password2.label}}
+        {{form.password2}}<br>
+
+        {% csrf_token %}
+        <input type = "Submit" name = 'Create User'>
+    </form>
+    {{form.errors}}
+<a href="login">Login</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--    <form action = "registration" method = 'POST'>-->
+<!--        -->
+<!--        <input type="text" name="first-name" placeholder="First Name"><br>-->
+<!--        <input type="text" name="last-name" placeholder="Last Name"><br>-->
+<!--        <input type="email" name="email" placeholder="Email"><br>-->
+<!--        <input type="password" name="password1" placeholder="Password"><br>-->
+<!--        <input type="password" name="password2" placeholder="Confirm Password"><br>-->
+<!--        <input type="submit">-->
+
+<!--    </form>-->
+<!--    {% for message in messages %}-->
+<!--    <div>{{message}}</div>-->
+<!--    {% endfor %}-->
+</body>
+</html>
