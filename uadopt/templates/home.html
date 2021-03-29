@@ -2,30 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Uadopt | MainPage</title>
 </head>
 <body>
 
 <a href="/">Home</a>
-<a href="adoption/aboutus">About Us</a>
 <a href="adoption/adopt_a_pet">Adopt A pet</a>
-<a href="adoption/add_a_pet">Add A pet</a>
+<a href="adoption/notification">Notification</a>
+<a href="adoption/conversation">Conversation</a>
+<a href="adoption/aboutus">About Us</a>
 <a href="adoption/support">Support</a>
 <a href="location">location</a>
 
 {% if user.is_authenticated %}
-    <span><a href="notifications">Notifications</a></span>
-    <span>Hello,{{request.user}}</span>
-    <span><a href="accounts/logout">Logout</a></span>
+<span><a href="accounts/accountInfo">Hello,{{request.user}}</a></span>
+<span><a href="accounts/logout">Logout</a></span>
 {% else %}
-    <a href="accounts/login">Login</a>
-    <a href="accounts/registration">Registration</a>
-    <a href="adminzone/login">Admin Login</a>
+<a href="accounts/login">Login</a>
+<a href="accounts/registration">Registration</a>
+<a href="adminzone/login">Admin Login</a>
 <a href="adminzone/registration">Admin Registration</a>
-
 {% endif %}
 
+
 <hr>
-<!--<iframe width="520" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="gmap_canvas" src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=%20Ahmedabad+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe> <a href='https://www.add-map.net/'>add google maps to my website</a> --><script type='text/javascript' src='https://embedmaps.com/google-maps-authorization/script.js?id=64197e19270e4c966faf8cfd7e620b342644a6fd'></script>
+<!--<iframe width="520" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="gmap_canvas" src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=%20Ahmedabad+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe> <a href='https://www.add-map.net/'>add google maps to my website</a> -->
+<script type='text/javascript'
+        src='https://embedmaps.com/google-maps-authorization/script.js?id=64197e19270e4c966faf8cfd7e620b342644a6fd'></script>
 </body>
 </html>

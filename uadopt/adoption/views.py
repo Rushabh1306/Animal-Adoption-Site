@@ -105,6 +105,7 @@ def requestSend(request, animalId=-1):
     req.save()
     return redirect('thankyou')
 
+
 @login_required
 def thankYou(request):
     message = 'Your request has been successfully send to the organization!'
@@ -112,8 +113,24 @@ def thankYou(request):
     return render(request, 'thankyou.html', context)
 
 
-def notifications(request):
-    pass
+def notificationList(request):
+    context = {}
+    return render(request, 'notificationList.html', context)
+
+
+def notification(request, reqid=-1):
+    context = {}
+    return render(request, 'notification.html', context)
+
+
+def conversationList(request):
+    context = {}
+    return render(request, 'conversationList.html', context)
+
+
+def conversation(request, cid=-1):
+    context = {}
+    return render(request, 'conversation.html', context)
 
 
 def aboutUs(request):

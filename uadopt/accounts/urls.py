@@ -13,4 +13,5 @@ urlpatterns = [
     # path('adminRegistration', views.adminRegistration, name='adminRegistration'),
     # path('adminIndex',views.adminIndex, name='adminIndex'),
     path('logout', views.logoutUser, name='logout'),
+    path('accountInfo', views.accountInfo, name='accountInfo'),
 ]
