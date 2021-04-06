@@ -5,8 +5,6 @@
     <title>Title</title>
 </head>
 <body>
-{{user}}<br>
-
 <!--search-->
 <input placeholder="Search.." type="text">
 
@@ -17,21 +15,6 @@
     <option value="cat">Cat</option>
     <option value="dog">Dog</option>
 </select>
-<br>
-
-<a href="../adminzone/">Admin Home</a>
-<a href="viewRequest">Requests</a>
-<a href="viewQuestions">Questions</a>
-<a href="viewAnimalList">AnimalList</a>
-<a href="about_us">AboutUs</a>
-<a href="support">Support</a>
-<a href="location">location</a>
-
-<br>
-
-<a href="pets/add-pet">Add a Pet</a>
-<a href="pets/modifyPets/1">Modify</a>
-<a href="pets/deletePets/1">Delete</a>
 
 
 {% for animal in all_animals %}
@@ -41,9 +24,9 @@
         <!--            <img src = '{{media}}/{{animal.animalpic}}-->
         {{animal.p_name}}
         {{animal.p_location}}
-        {{animal.p_age}}
+        {{animal.p_age}}adopt_a_pet.html
 
-        <a href="pets/modify/{{animal.id}}">View</a>
+        <a href="animalInfo/{{animal.id}}">View</a>
 
 
     </p>

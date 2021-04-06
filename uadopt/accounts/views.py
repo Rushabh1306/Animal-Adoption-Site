@@ -8,10 +8,9 @@ from .forms import CreateUserForm, UserDetailsForm, EvaluationForm, UserPrimaryF
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-# from .models import userDetails
 from adoption.models import Evaluation
 
-from .models import userDetails
+from .models import userDetail
 
 
 def registerPage(request):
@@ -34,9 +33,9 @@ def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request,username=username,password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request,user)
+            login(request, user)
             return redirect('/')
         else:
             messages.info(request, "Username or password incorrect")
@@ -50,53 +49,69 @@ def logoutUser(request):
     return redirect('/')
 
 
-# def accountInfo(request):
-#     # obj_user = get_object_or_404(User, id=request.user.id)
-#     # form1 = UserDetailsForm(request.POST or None, instance=obj_user)
-#     # print(obj_user)
-#     # obj_user_details = get_object_or_404(userDetails, user=obj_user)
-#     # form2 = UserDetailsForm_2(request.POST or None, instance=obj_user_details)
-#     #
-#     # obj_eval = get_object_or_404(Evaluation, user_id=request.user.id)
-#     # form3 = UserDetailsForm(request.POST or None, instance=obj_eval)
-#
-#     # user_info = User.objects.get(id=request.user.id)
-#     # form1 = UserDetailsForm(instance=user_info)
-#     #
-#     # # user_details = userDetails.objects.get(user=user_info)
-#     # # print(user_details)
-#     #
-#     #
-#     #
-#     # context = {'form1':form1}
-#     # return render(request, 'account_info.html', context)
-#     pass
+# AccountInfo
 @login_required
 def accountInfo(request):
     print(request.user.id)
 
     if request.method == "POST":
-        form1 = UserPrimaryForm(request.POST, prefix='userInfo')
-        form2 = UserDetailsForm(request.POST, prefix='userDetails')
-        form3 = EvaluationForm(request.POST, prefix='eval')
+        userId = request.user.id
+        try:
+            userInfo = User.objects.get(pk=userId)
+        except:
+            userInfo = None
+        form1 = UserPrimaryForm(request.POST, prefix='userInfo', instance=userInfo)
+
+        try:
+            details = userDetail.objects.get(user_id=userId)
+        except userDetail.DoesNotExist:
+            details = None
+        form2 = UserDetailsForm(request.POST, prefix='userDetails', instance=details)
+
+        try:
+            userEvaluation = Evaluation.objects.get(user_id=userId)
+        except Evaluation.DoesNotExist:
+            userEvaluation = None
+
+        form3 = EvaluationForm(request.POST, prefix='eval', instance=userEvaluation)
 
         if form1.is_valid() and form2.is_valid() and form3.is_valid():
-            a = form1.save()
-            b = form2.save(a)
-            c = form3.save(a, b)
+            print("All forms are cleared")
+            form1.save()
+
+            update = form2.save(commit=False)
+            update.user_id = request.user.id
+            form2.save()
+
+            update = form3.save(commit=False)
+            update.user_id = request.user.id
+            form3.save()
+        context = allDetails(request)
+        return render(request, 'account_info.html', context)
 
     else:
-        userId = request.user.id
-        userInfo = User.objects.get(pk=userId)
-        form1 = UserPrimaryForm(prefix='userInfo', instance=userInfo)
-        try:
-            details = userDetails.objects.get(user_id=userId)
-        except userDetails.DoesNotExist:
-            details = None
-        form2 = UserDetailsForm(prefix='userDetails', instance=details)
-
-        userEvaluation = get_object_or_404(Evaluation, user_id=userId)
-        form3 = EvaluationForm(prefix='eval', instance=userEvaluation)
-
-        context = {'form1': form1, 'form2': form2, 'form3': form3}
+        context = allDetails(request)
         return render(request, 'account_info.html', context)
+
+
+def allDetails(request):
+    userId = request.user.id
+    # user primary details
+    userInfo = User.objects.get(pk=userId)
+    form1 = UserPrimaryForm(prefix='userInfo', instance=userInfo)
+    # # user details
+    try:
+        details = userDetail.objects.filter(user_id=userId).first()
+    except userDetail.DoesNotExist:
+        details = None
+    form2 = UserDetailsForm(prefix='userDetails', instance=details)
+
+    # user evaluation
+    try:
+        userEvaluation = Evaluation.objects.get(user_id=userId)
+    except Evaluation.DoesNotExist:
+        userEvaluation = None
+    form3 = EvaluationForm(prefix='eval', instance=userEvaluation)
+
+    context = {'form1': form1, 'form2': form2, 'form3': form3}
+    return context

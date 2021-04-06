@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-User Details
+User Details :
 <p>
     Username : {{userInfo.username}}<br>
     Email : {{userInfo.email}}<br>
@@ -13,7 +13,7 @@ User Details
     Last Name : {{userInfo.lastname}}<br>
 
 </p>
-Animal Details
+Animal Details :
 
 <p>
     Name : {{animalInfo.p_name}}<br>
@@ -25,10 +25,32 @@ Animal Details
     Vaccination : {{animalInfo.p_vaccination}}<br>
     Description : {{animalInfo.p_desc}}<br>
 </p>
-Evaluation Details
+Evaluation Details :
 
 <p>
-    Answer1 : {{evalInfo.evaluation_details}}
+    Marital Status(Single | Married)<br>
+    {{evalInfo.answer1}}<br>
+    Family Structure(Nuclear | Joint)<br>
+    {{evalInfo.answer2}}<br>
+    Have all household members agreed to the adoption?:<br>
+    {{evalInfo.answer3}}<br>
+    Do you have access to a garden? :<br>
+    {{evalInfo.answer4}}<br>
+    Is there any animal Shelter near you?:<br>
+    {{evalInfo.answer5}}<br>
+    No. of Household Members:<br>
+    {{evalInfo.answer6}}<br>
+    Do you live in a(House/Flat/Apartment):<br>
+    {{evalInfo.answer7}}<br>
+    Where do you intend on keeping the animal?(Inside House/Outside House):<br>
+    {{evalInfo.answer8}}<br>
+    Employment status:(Employed | Self-employed | Unemployed | Housewife):<br>
+    {{evalInfo.answer9}}<br>
+    Do you currently own a pet?(Yes | No):<br>
+    {{evalInfo.answer10}}<br>
+
+
+    <!--    Answer1 : {{evalInfo.evaluation_details}}-->
 </p>
 <a href ="/adoption/requestSend/{{animalInfo.id}}">Submit</a>
 </body>

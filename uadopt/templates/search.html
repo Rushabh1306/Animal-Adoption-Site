@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<br/>
+<form action="{% url 'search:searchposts' %}" method="GET" value="{{request.GET.q}}">
+    Search <input name="q" placeholder="Search..." type="text" value="{{request.GET.q}}"/>
+    <input name="submit" type="submit" value="Search"/>
+</form>
+
+
+{% for animal in all_animals %}
+<div>
+    <p>
+        <img src='/../media/{{animal.p_animalpic}}'>
+        <!--            <img src = '{{media}}/{{animal.animalpic}}-->
+        {{animal.p_name}}
+        {{animal.p_location}}
+        {{animal.p_age}}adopt_a_pet.html
+
+        <a href="animalInfo/{{animal.id}}">View</a>
+
+
+    </p>
+</div>
+{% endfor %}
+
+
+</body>
+</html>

@@ -12,8 +12,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-class userDetails(models.Model):
-    user_id = models.IntegerField()
+class userDetail(models.Model):
+    user_id = models.IntegerField(null=True)
     address = models.TextField(blank=True)
     city = models.CharField(max_length=15, blank=True)
     state = models.CharField(max_length=15, blank=True)

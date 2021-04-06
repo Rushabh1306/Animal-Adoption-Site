@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'adoption.apps.AdoptionConfig',
     'accounts.apps.AccountsConfig',
     'location.apps.LocationConfig',
-    'adminzone',
+    'adminzone.apps.AdminzoneConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

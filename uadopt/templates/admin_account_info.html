@@ -5,18 +5,19 @@
     <title>Title</title>
 </head>
 <body>
+<h1>Admin Account Info</h1>
 <form action="" method="post">
     {% csrf_token %}
-    <h1>User Primary Info</h1>
+    <h1>Admin Primary Info</h1>
     {{form1.as_p}}
-    <h1>User Details Info</h1>
+    <h1>Admin Details Info</h1>
     {{form2.as_p}}
-    <h1>Evaluation Info</h1>
+    <h1>Organization Info</h1>
     {{form3.as_p}}
 
 
     <input type="submit"/>
 </form>
-<a href="{% url 'index' %}">Back</a>
+<a href="{% url 'adminIndex' %}">Back</a>
 </body>
 </html>

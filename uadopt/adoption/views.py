@@ -3,11 +3,14 @@ from django.shortcuts import render, redirect
 from .models import Animal
 from .models import Evaluation, Request
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
 # Create your views here.
+from accounts.forms import EvaluationForm
+
 
 def index(request):
     return render(request, 'home.html')
+
 
 @login_required
 def adopt_a_pet(request):
@@ -15,6 +18,25 @@ def adopt_a_pet(request):
     all_animals = Animal.objects.all()
     context = {'all_animals': all_animals}
     return render(request, 'adopt_a_pet.html', context)
+
+
+@login_required
+def adopt_a_pet(request):
+    context = {}
+    all_animals = Animal.objects.all()
+    context['all_animals'] = all_animals
+    query = request.GET.get('q')
+    submitbutton = request.GET.get('submit')
+    if query is not None:
+        lookups = Q(p_type__icontains=query) | Q(p_name__icontains=query)
+        all_animals = Animal.objects.filter(lookups).distinct()
+        print(all_animals)
+        context['all_animals'] = all_animals
+        # context['submitbutton'] = submitbutton
+        return render(request, 'adopt_a_pet.html', context)
+    else:
+        return render(request, 'adopt_a_pet.html', context)
+
 
 @login_required
 def animalInfo(request, animalId=0):
@@ -43,58 +65,56 @@ def animalInfo(request, animalId=0):
     return render(request, 'animal_info.html', context)
 
 
+
 @login_required
 def evaluation(request, animalId=-1):
     context = {
-        'animalId': animalId
+        'animalId': animalId,
     }
-    print(animalId)
+    userId = request.user.id
+    try:
+        userEvaluation = Evaluation.objects.get(user_id=userId)
+    except Evaluation.DoesNotExist:
+        userEvaluation = None
+    form = EvaluationForm(prefix='eval', instance=userEvaluation)
+    context['form'] = form
+
     if request.method == 'POST':
-        print('In Post Method')
-        q1 = request.POST.get('answer1')
-        currentUserId = request.user.id
-        print(q1,animalId)
-        animal = Animal.objects.get(pk=animalId)
-        if checkEval(currentUserId):
-            print('Updated')
-            eval = Evaluation.objects.get(user_id=currentUserId)
-            Evaluation.objects.filter(pk=eval.id).update(evaluation_details=q1,animal=animal)
-        else:
-            print('New')
-            newEval = Evaluation(user_id=currentUserId, evaluation_details=q1,animal=animal)
-            newEval.save()
-        return redirect('../overview')
-    else:
-        return render(request, 'evaluation.html', context)
+        try:
+            userEvaluation = Evaluation.objects.get(user_id=userId)
+        except Evaluation.DoesNotExist:
+            userEvaluation = None
 
+        form = EvaluationForm(request.POST, prefix='eval', instance=userEvaluation)
 
-def checkEval(userId):
-    if Evaluation.objects.filter(user_id=userId):
-        return True
-    return False
+        if form.is_valid():
+            update = form.save(commit=False)
+            update.user_id = request.user.id
+            animal = Animal.objects.get(pk=animalId)
+            update.animal = animal
+            form.save()
+            context['form'] = form
+            return redirect('../overview/' + str(animalId))
+
+    return render(request, 'evaluation.html', context)
+
 
 @login_required
-def overview(request):
-
-
+def overview(request, animalId=-1):
     userId = request.user.id
     eval_id = Evaluation.objects.get(user_id=userId).id
-    animalId = Evaluation.objects.get(user_id=userId).animal_id
+    animalId = int(animalId)
 
-    userInfo = User.objects.get(pk=userId) # values('email','first_name','last_name')
+    userInfo = User.objects.get(pk=userId)  # values('email','first_name','last_name')
     animalInfo = Animal.objects.get(pk=animalId)
-
     evalInfo = Evaluation.objects.get(pk=eval_id)
-    # print('UserInfo : ', userInfo.password)
-    # print('AnimalInfo : ', animalInfo)
-    # print('EvalInfo : ', evalInfo)
+
     context = {}
     context['userInfo'] = userInfo
     context['animalInfo'] = animalInfo
     context['evalInfo'] = evalInfo
 
     return render(request, 'overview.html', context)
-
 
 
 @login_required

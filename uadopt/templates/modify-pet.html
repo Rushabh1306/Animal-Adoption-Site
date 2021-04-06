@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Uadopt | Pets-Add</title>
+</head>
+<body>
+<h3>Modify Your pet here</h3>
+
+<form action="" method='post'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit">
+</form>
+<a href="{% url 'pets' %}">Back</a>
+<a href="../delete/{{animalId}}">View</a>
+
+
+</body>
+</html>

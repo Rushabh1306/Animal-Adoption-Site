@@ -25,7 +25,7 @@ maritial_status = \
 
 
 class Evaluation(models.Model):
-    user_id = models.IntegerField()
+    user_id = models.IntegerField(null=True)
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE, null=True)
     answer1 = models.CharField(max_length=14, blank=True)
     answer2 = models.CharField(max_length=14, blank=True)

@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.forms import ModelForm
 
-from .models import userDetails
+from .models import userDetail
 from adoption.models import Evaluation
 
 
@@ -13,15 +13,15 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-class UserPrimaryForm(UserCreationForm):
+class UserPrimaryForm(ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
+        fields = ['username', 'email', 'first_name', 'last_name']
 
 
 class UserDetailsForm(ModelForm):
     class Meta:
-        model = userDetails
+        model = userDetail
         fields = ['phone_number', 'address', 'city', 'state', 'zipcode']
 
 
